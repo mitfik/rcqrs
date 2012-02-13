@@ -1,6 +1,5 @@
 require 'uuidtools'
 require 'active_support'
-require 'active_support/core_ext/object/returning'
 require 'yajl'
 require 'eventful'
 
