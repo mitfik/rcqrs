@@ -11,6 +11,7 @@ require 'event_store/domain_event_storage'
 require 'event_store/domain_repository'
 require 'event_store/adapters/active_record_adapter'
 require 'event_store/adapters/in_memory_adapter'
+require 'event_store/adapters/data_mapper_adapter'
 
 require 'bus/router'
 require 'bus/command_bus'
