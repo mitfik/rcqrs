@@ -4,22 +4,21 @@ module EventStore
     class EventProvider 
       include DataMapper::Resource
 
+      #default name for table
+      storage_names[:event_store] = "event_providers"
+
       # default repository name
       def self.default_repository_name
-         :event_storage
+        :event_store
       end
 
       property :aggregate_id,   String,  :required => true, :length => 36, :unique => true, :key => true
       property :aggregate_type, String,  :required => true
       property :version,        Integer, :required => true
       
-      #default name for table
-      storage_names[:event_storage] = "events"
-
-
       def self.find(guid)
         return nil if guid.blank?
-        first(:guid => guid)
+        repository(:event_store) {first(:aggregate_id => guid)}
       end
       
       def events
@@ -30,9 +29,11 @@ module EventStore
     class Event
       include DataMapper::Resource
 
+      storage_names[:event_store] = "events"
+
       # default repository name
       def self.default_repository_name
-         :event_storage
+         :event_store
       end
 
       property :aggregate_id, String,   :required => true, :length => 36, :unique => true, :key => true
