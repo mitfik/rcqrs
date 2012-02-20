@@ -35,7 +35,10 @@ module EventStore
       def self.default_repository_name
          :event_storage
       end
-      scope :for, lambda { |guid| find(:aggregate_id => guid).order(:version) }
+
+      def self.for(guid)
+        find(:aggregate_id => guid).order(:version)
+      end
     end
 
     class DataMapperAdapter < EventStore::DomainEventStorage
