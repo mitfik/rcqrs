@@ -30,27 +30,24 @@ module EventStore
     class Event
       include DataMapper::Resource
 
+      # default repository name
+      def self.default_repository_name
+         :event_storage
+      end
+
       property :aggregate_id, String,   :required => true, :length => 36, :unique => true, :key => true
       property :event_type,   String,   :required => true 
       property :version,      Integer,  :required => true
       property :data,         Text,     :required => true
       property :created_at,   DateTime, :required => true
       
-      # default repository name
-      def self.default_repository_name
-         :event_storage
-      end
-
       def self.for(guid)
         find(:aggregate_id => guid).order(:version)
       end
     end
 
     class DataMapperAdapter < EventStore::DomainEventStorage
-     # def initialize(options={})
-     #   options.reverse_merge!(:adapter => 'sqlite3', :database => 'events.db')
-     # end
-      
+
       def find(guid)
         EventProvider.find(guid)
       end
