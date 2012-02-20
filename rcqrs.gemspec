@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
     "lib/commands/invalid_command.rb",
     "lib/domain/aggregate_root.rb",
     "lib/event_store/adapters/active_record_adapter.rb",
-    "lib/event_store/adapters/data_mapper.rb",
+    "lib/event_store/adapters/data_mapper_adapter.rb",
     "lib/event_store/adapters/in_memory_adapter.rb",
     "lib/event_store/domain_event_storage.rb",
     "lib/event_store/domain_repository.rb",

@@ -16,7 +16,7 @@ module EventStore
       property :event_type,   String,   :required => true 
       property :version,      Integer,  :required => true
       property :data,         Text,     :required => true
-      property :created_at,   DataTime, :required => true
+      property :created_at,   DateTime, :required => true
 
       def self.find(guid)
         return nil if guid.blank?
