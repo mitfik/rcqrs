@@ -77,9 +77,9 @@ module EventStore
     end
     
     # Get unsaved events for all tracked aggregates, ordered by time applied
-    # def pending_events
-    #   @tracked_aggregates.map {|guid, tracked| tracked.pending_events }.flatten!.sort_by(&:timestamp)
-    # end
+    def pending_events
+      @tracked_aggregates.map {|guid, tracked| tracked.pending_events }.flatten!.sort_by(&:timestamp)
+    end
     
     # Recreate an aggregate root by re-applying all saved +events+
     def load_aggregate(klass, events)

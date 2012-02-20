@@ -5,6 +5,7 @@ module Commands
         include ::ActiveModel::Conversion
         include ::ActiveModel::AttributeMethods
         include ::ActiveModel::Validations
+        include ::ActiveModel::Validations::Callbacks
         extend ::ActiveModel::Naming
         
         extend ::Rcqrs::Initializer

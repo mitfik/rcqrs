@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "rcqrs"
-  s.version = "0.1.0"
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ben Smith"]
-  s.date = "2012-02-13"
+  s.date = "2012-02-20"
   s.description = "A Ruby implementation of Command-Query Responsibility Segregation (CQRS) with Event Sourcing, based upon the ideas of Greg Young."
   s.email = "ben@slashdotdash.net"
   s.extra_rdoc_files = [
@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
     "lib/commands/invalid_command.rb",
     "lib/domain/aggregate_root.rb",
     "lib/event_store/adapters/active_record_adapter.rb",
+    "lib/event_store/adapters/data_mapper.rb",
     "lib/event_store/adapters/in_memory_adapter.rb",
     "lib/event_store/domain_event_storage.rb",
     "lib/event_store/domain_repository.rb",
