@@ -10,7 +10,6 @@ module EventStore
       end
       
       def events
-        p "---"
         Event.for(aggregate_id)
       end
     end
@@ -33,8 +32,7 @@ module EventStore
       def save(aggregate)
         provider = find_or_create_provider(aggregate)
         save_events(aggregate.pending_events)
-        provider.version =  aggregate.version
-        provider.save
+        provider.update_attribute(:version, aggregate.version)
       end
       
       def transaction(&block)
@@ -45,14 +43,6 @@ module EventStore
 
       def provider_connection
         EventProvider.connection
-      end
-
-      def provider
-        EventProvider
-      end
-
-      def event
-        Event
       end
       
       def event_connection
