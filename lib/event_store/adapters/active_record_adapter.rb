@@ -32,7 +32,8 @@ module EventStore
       def save(aggregate)
         provider = find_or_create_provider(aggregate)
         save_events(aggregate.pending_events)
-        provider.update_attribute(:version, aggregate.version)
+        provider.version = aggregate.version
+        provider.save
       end
       
       def transaction(&block)
