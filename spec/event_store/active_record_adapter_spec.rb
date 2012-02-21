@@ -16,19 +16,19 @@ module EventStore
         end
 
         it "should persist a single event provider (aggregate)" do
-          count = @adapter.provider_connection.select_value('select count(*) from event_providers').to_i
+          count = @adapter.provider.count
           count.should == 1
         end
 
         it "should persist a single event" do
-          count = @adapter.event_connection.select_value('select count(*) from events').to_i
+          count = @adapter.event.count
           count.should == 1
         end
 
         specify { @provider.aggregate_type.should == 'Domain::Company' }
         specify { @provider.aggregate_id.should == @aggregate.guid }
         specify { @provider.version.should == 1 }
-        specify { @provider.events.count.should == 1 }
+        specify { @provider.events.count.should ==1 }
         
         context "persisted event" do
           before(:each) do

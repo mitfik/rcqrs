@@ -46,7 +46,7 @@ module EventStore
       property :created_on,   DateTime
       
       def self.for(guid)
-        find(:aggregate_id => guid).order(:version)
+        all(:aggregate_id => guid, :order => [:version.desc] )
       end
     end
 

@@ -1,6 +1,8 @@
 require 'uuidtools'
 require 'yajl'
 require 'eventful'
+require 'dm-core'
+require 'active_record'
 
 require 'support/guid'
 require 'support/serialization'
@@ -8,8 +10,8 @@ require 'support/initializer'
 
 require 'event_store/domain_event_storage'
 require 'event_store/domain_repository'
-#require 'event_store/adapters/active_record_adapter'
-#require 'event_store/adapters/in_memory_adapter'
+require 'event_store/adapters/active_record_adapter'
+require 'event_store/adapters/in_memory_adapter'
 require 'event_store/adapters/data_mapper_adapter'
 
 require 'bus/router'
