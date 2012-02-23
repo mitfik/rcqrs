@@ -81,3 +81,7 @@ such as `CompanyRegisteredHandler`
 - currently two adapters: ActiveRecord and in memory (for testing)
 - adapter interface is 2 methods: `find(guid)` and `save(aggregate_root)`
 - could be extended to use a NoSQL store
+
+## Warning !!!
+
+You must remmber that You CAN NOT give the same name for event handler as for command handler, first because it's not properly, second app will crash :)
