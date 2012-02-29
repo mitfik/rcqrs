@@ -82,6 +82,22 @@ such as `CompanyRegisteredHandler`
 - adapter interface is 2 methods: `find(guid)` and `save(aggregate_root)`
 - could be extended to use a NoSQL store
 
+## Setting 
+
+There is possibility to configure rcqrs-rails. Right now there is just 2 options: orm and file path for example:
+
+   Rcqrs::Setting.set do |setting| 
+     setting.default_orm = :in_memory 
+     setting.default_database_file_path = "config/database_event_store.yml" 
+   end
+
+### Rails 
+  If You will use dm-rails You need to put all config to config/database.yml to make sure that all rake will be work for You.
+  You can put it for example in config/initializer/rcqrs.rb
+
+### Other
+  You can put it wherever You want :) 
+
 ## Warning !!!
 
 You must remmber that You CAN NOT give the same name for event handler as for command handler, first because it's not properly, second app will crash :)
