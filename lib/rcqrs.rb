@@ -23,5 +23,4 @@ require 'events/handlers/async_handler'
 
 require 'domain/aggregate_root'
 
-autoload :ActiveRecord, 'active_record'
 autoload :Resque, 'resque'
