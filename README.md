@@ -74,6 +74,13 @@ such as `CompanyRegisteredHandler`
 - email sending
 - execute long running processes (e.g. 3rd party APIs, file upload)
 
+Right now if You want to use Resque for handling events You need to inherit Your EventHandlers by Events::Handlers::AsyncHandler for example:
+
+  class UserCreatedhandler < Events::Handlers::AsyncHandler
+    def execute(event)
+      # ...
+    end
+  end
 ###Event Store
 
 - persists all domain events applied to each aggregate root (stored as JSON)

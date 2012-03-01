@@ -30,6 +30,5 @@ module Rcqrs
 		def default_orm
 			@default_orm ||= :in_memory
 		end
-
 	end
 end
