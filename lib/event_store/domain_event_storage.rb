@@ -14,7 +14,7 @@ module EventStore
     end
   end
 
-  def create
+  def EventStore.create
     case Setting.default_orm 
       when :data_mapper
         require "event_store/adapters/data_mapper_adapter"
