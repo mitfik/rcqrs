@@ -1,4 +1,4 @@
-autoload :DataMapper, "dm-core"
+require "dm-core"
 
 module EventStore
   module Adapters
