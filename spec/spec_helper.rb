@@ -16,6 +16,9 @@ require 'reporting/company'
 require 'dm-migrations/auto_migration'
 require 'bus/mock_async_handler.rb'
 require 'bus/mock_router'
+require 'event_store/adapters/active_record_adapter'
+require 'event_store/adapters/in_memory_adapter'
+require 'event_store/adapters/data_mapper_adapter'
 
 
 DataMapper.setup(:event_store, "sqlite::memory:")

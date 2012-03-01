@@ -23,14 +23,5 @@ require 'events/handlers/async_handler'
 
 require 'domain/aggregate_root'
 
-#autoload :ActiveRecordAdapter, 'event_store/adapters/active_record_adapter'
-#autoload :ActiveRecord, 'active_record'
-#autoload :DataMapperAdapter, "event_store/adapters/data_mapper_adapter"
-#autoload :InMemoryAdapter, 'event_store/adapters/in_memory_adapter'
-#
-
-# should be autoload
-require 'resque'
-require 'event_store/adapters/active_record_adapter'
-require "event_store/adapters/data_mapper_adapter"
-require 'event_store/adapters/in_memory_adapter'
+autoload :ActiveRecord, 'active_record'
+autoload :Resque, 'resque'
