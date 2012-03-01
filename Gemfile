@@ -15,7 +15,6 @@ group :data_mapper do
 end
 
 gem "uuidtools"
-gem "yajl-ruby", :require => "yajl"
 gem "eventful", "1.0.0"
 gem "jeweler"
 gem "resque"

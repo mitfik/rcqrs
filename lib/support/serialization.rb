@@ -6,7 +6,7 @@ module Rcqrs
     
     module ClassMethods
       def from_json(json)
-        parsed = Yajl::Parser.parse(json)
+        parsed = JSON.parse(json)
         self.new(parsed)
       end
     end

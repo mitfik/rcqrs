@@ -1,5 +1,4 @@
 require 'uuidtools'
-require 'yajl'
 require 'eventful'
 require 'active_model'
 
