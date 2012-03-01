@@ -1,7 +1,3 @@
-autoload :DataMapperAdapter, "event_store/adapters/data_mapper_adapter"
-autoload :ActiveRecordAdapter, 'event_store/adapters/active_record_adapter'
-autoload :InMemoryAdapter, 'event_store/adapters/in_memory_adapter'
-
 module EventStore
   class DomainEventStorage
     def find(guid)

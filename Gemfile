@@ -18,6 +18,7 @@ gem "uuidtools"
 gem "yajl-ruby", :require => "yajl"
 gem "eventful", "1.0.0"
 gem "jeweler"
+gem "resque"
 
 group :spec do
   gem "rspec", ">= 2.8.0"

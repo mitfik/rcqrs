@@ -13,5 +13,15 @@ module Bus
         @router.handled.should == true
       end
     end
+    context "when publishing async events" do
+      subject { EventBus.new(MockRouter.new(MockAsyncHandler.new)) }
+
+      it "should enqueue Resque with handler class and event" do
+        event = Events::CompanyCreatedEvent.new
+        ::Resque::Job.should_receive(:create).with('rcqrs', MockAsyncHandler, event.class.to_s, event.to_json)
+        
+        subject.publish(event)
+      end
+    end
   end
 end
