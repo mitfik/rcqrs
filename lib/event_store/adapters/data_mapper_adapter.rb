@@ -3,7 +3,7 @@ require "dm-core"
 module EventStore
   module Adapters
     # Represents every aggregate created
-    class EventProvider 
+    class EventProvider
       include DataMapper::Resource
 
       # default repository name
@@ -19,14 +19,14 @@ module EventStore
       property :aggregate_type, String,  :required => true
       property :version,        Integer, :required => true
       property :created_on,     DateTime
-      
+
       def self.find(guid)
         return nil if guid.blank?
-        repository(:event_store) {first(:aggregate_id => guid)}
+        DataMapper.repository(:event_store) {first(:aggregate_id => guid)}
       end
-      
+
       def events
-        Event.for(aggregate_id)
+        DataMapper.repository(:event_store) { Event.for(aggregate_id) }
       end
     end
 
@@ -41,21 +41,22 @@ module EventStore
       storage_names[:event_store] = "events"
 
 
-      property :aggregate_id, String,   :required => true, :length => 36, :unique => true, :key => true
-      property :event_type,   String,   :required => true 
+      property :id,           Serial # normally this shouldn't be necessary, because we do not need key on this table, but DM do not allow create tables without key.
+      property :aggregate_id, String,   :required => true, :length => 36
+      property :event_type,   String,   :required => true
       property :version,      Integer,  :required => true
       property :data,         Text,     :required => true
       property :created_on,   DateTime
-      
+
       def self.for(guid)
-        all(:aggregate_id => guid, :order => [:version.desc] )
+        DataMapper.repository(:event_store) { all(:aggregate_id => guid, :order => [:version.desc] ) }
       end
     end
 
     class DataMapperAdapter < EventStore::DomainEventStorage
 
       def find(guid)
-        EventProvider.find(guid)
+        DataMapper.repository(:event_store) { EventProvider.find(guid) }
       end
 
       def save(aggregate)
@@ -63,34 +64,38 @@ module EventStore
         save_events(aggregate.pending_events)
         provider.update(:version => aggregate.version)
       end
-      
+
       def transaction(&block)
-        EventProvider.transaction do |t|
+        DataMapper.repository(:event_store) do
+          EventProvider.transaction do |t|
             yield
-        end 
+          end
+        end
       end
 
       def provider_connection
-        EventProvider.connection
+        DataMapper.repository(:event_store) { EventProvider.connection }
       end
-      
+
       def event_connection
-        Event.connection
+        DataMapper.repository(:event_store) { Event.connection }
       end
 
     private
-      
+
       def find_or_create_provider(aggregate)
-        if provider = EventProvider.find(aggregate.guid)
-          raise AggregateConcurrencyError unless provider.version == aggregate.source_version
-        else
-          provider = create_provider(aggregate)
+        DataMapper.repository(:event_store) do
+          if provider = EventProvider.find(aggregate.guid)
+            raise AggregateConcurrencyError unless provider.version == aggregate.source_version
+          else
+            provider = create_provider(aggregate)
+          end
+          provider
         end
-        provider
       end
 
       def create_provider(aggregate)
-        DataMapper.repository(:event_store) do 
+        DataMapper.repository(:event_store) do
           EventProvider.create(
            :aggregate_id => aggregate.guid,
            :aggregate_type => aggregate.class.name,
@@ -101,11 +106,7 @@ module EventStore
       def save_events(events)
         DataMapper.repository(:event_store) do
           events.each do |event|
-            Event.create(
-              :aggregate_id => event.aggregate_id,
-              :event_type => event.class.name,
-              :version => event.version,
-              :data => event.to_json) 
+            Event.create( :aggregate_id => event.aggregate_id, :event_type => event.class.name, :version => event.version, :data => event.to_json)
           end
         end
       end
