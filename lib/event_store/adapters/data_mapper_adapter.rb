@@ -18,7 +18,7 @@ module EventStore
       property :aggregate_id,   String,  :required => true, :length => 36, :unique => true, :key => true
       property :aggregate_type, String,  :required => true
       property :version,        Integer, :required => true
-      property :created_on,     DateTime
+      property :created_at,     DateTime
 
       def self.find(guid)
         return nil if guid.blank?
@@ -46,7 +46,7 @@ module EventStore
       property :event_type,   String,   :required => true
       property :version,      Integer,  :required => true
       property :data,         Text,     :required => true
-      property :created_on,   DateTime
+      property :created_at,   DateTime
 
       def self.for(guid)
         DataMapper.repository(:event_store) { all(:aggregate_id => guid, :order => [:version.desc] ) }
