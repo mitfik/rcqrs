@@ -93,17 +93,18 @@ Right now if You want to use Resque for handling events You need to inherit Your
 
 There is possibility to configure rcqrs-rails. Right now there is just 2 options: orm and file path for example:
 
-   Rcqrs::Setting.set do |setting| 
-     setting.default_orm = :in_memory 
-     setting.default_database_file_path = "config/database_event_store.yml" 
-   end
+    Rcqrs::Setting.set do |setting| 
+       setting.default_orm = :in_memory 
+       setting.default_database_file_path = "config/database_event_store.yml" 
+    end
+    Rcqrs::Gateway.instance
+
+You can put it for example in config/initializer/rcqrs.rb
+  
 
 ### Rails 
-  If You will use dm-rails You need to put all config to config/database.yml to make sure that all rake will be work for You.
-  You can put it for example in config/initializer/rcqrs.rb
-
-### Other
-  You can put it wherever You want :) 
+  If You will use dm-rails You need to put all config into config/database.yml to make sure that all rakes will work.
+  
 
 ## Warning !!!
 
